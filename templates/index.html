@@ -1,0 +1,142 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LM ESTATE</title>
+    <link rel="stylesheet" href="{% static './css/style.css' %}">
+    <!-- <script src="{% static 'https://unpkg.com/htmx.org@1.9.3' %}" integrity="sha384-lVb3Rd/Ca0AxaoZg5sACe8FJKF0tnUgR2Kd7ehUOG5GCcROv5uBIZsOqovBAcWua" crossorigin="anonymous"></script> -->
+</head>
+<body class="main-body" id="container">
+    <main>
+        <header class="header">
+            <div class="header-nav">
+                <h1>LM Estate</h1>
+                <a href="#contact">Reach Out</a>         
+            </div>
+            <div class="search">
+                <input type="text" name="q" id="value" placeholder="Search by: price, location, status">
+                <button>Search</button>
+            </div>
+        </header>
+        {% block content %}
+        <section class="main-estate">
+            <main class="main-section">
+                <div class="pages">
+                    <h2>Property List</h2>
+                    <div class="props">
+
+                        {% for property in property_list %}
+                        <div class="card">
+                            <a href="{% url 'estate-detail' property.property_id %}">
+                            <p class="like">{{property.date_posted | date:"SHORT_DATE_FORMAT"}}</p>
+                            <img src="{{property.get_image}}" alt="">
+                            <div class="text-card">
+                                <div class="card-text">
+                                    <b>${{property.price}}</b>
+                                    <p>{{property.status}}</p>
+                                </div>
+                                <b>Description:</b><p>{{property.description}}</p>
+                                <p><b>Location: {{property.property_location}}</b></p>
+                                <a href="#"><b>{{property.agency.agency_name}}</b></a>
+                            </div>
+                            </a>
+                        </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+
+                <div class="pages">
+                    <h2>Find Agents</h2>
+                    <div class="agencies">
+                        {% for agent in agency %}
+                        <div class="agency">
+                            <div class="owner-info">
+                                <img src="{% static './img/dream-house.jpg' %}" alt="">
+                                <a href="{% url 'agent-list' agent.id %}"><p><b>{{agent.agency_name}}</b></p></a>
+                            </div>
+                            <div class="owner-info-text">
+                                <p>Number of properties listed: {{agent.property_count}}</p>
+                                <p>Agency Location: {{agent.agent_location}}</p>
+                                <p>Registered Since: {{agent.date_registered | timesince}}</p>                     
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                        <p class="more-owners"><a href="">More</a></p>
+                    </div>
+                </div> 
+         
+            </main>
+            <div class="testimony-section">
+                <div class="testimony">
+                    <h2>What people say</h2>
+                    <div class="testimony-list">
+                        <div class="testimony-a">
+                            <p><b>Eugene</b></p>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque velit nesciunt omnis illum tempora quae soluta dolor est suscipit ut.</p>
+                        </div>
+                        <div class="testimony-a">
+                            <p><b>Edem</b></p>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta deserunt atque voluptates, impedit exercitationem neque fugit temporibus corporis. Cumque, quas!</p>
+                        </div>
+                        <div class="testimony-a">
+                            <p><b>Abena</b></p>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, ipsum ipsa sunt numquam laborum dolor accusantium quibusdam eaque vel pariatur.</p>
+                        </div>                            
+                    </div>
+                </div>
+            </div>
+
+            <div class="pagination">
+                <div class="step-links">
+                {% if property_list.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ property_list.previous_page_number }}">previous</a>
+                    {% endif %}
+                    <span class="current">
+                    Page {{ property_list.number }} of {{ property_list.paginator.num_pages }}.
+                    </span>
+                    {% if property_list.has_next %}
+                    <a href="?page={{ property_list.next_page_number }}">next</a>
+                    <a href="?page={{ property_list.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+                </div>
+            </div>
+        </section>
+        {% endblock %}
+        <footer id="fooTER">
+            <section class="footer menu">
+                <main class="footer-div">
+                    <div class="reachOut reach">
+                        <div class="contact-info">
+                            <h2>LM ESTATES</h2>
+                            <li>Email:lmestates@lm.com</li>
+                            <li>Phone: +233544598658</li>
+                            <div>
+                                <p>Location: Cresent Avenue</p>
+                                <p>Hse No. 12, Damson Street</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="contact" class="reachOut">
+                        <p><b>Reach out to us for more enquiry</b></p>
+                        <input type="email" name="email" placeholder="Email">
+                        <button type="button">Submit</button>
+                    </div>           
+                </main>
+            </section>
+            <div style="text-align: center; color: rgb(53, 51, 50);"><i><b>Copyright &COPY; LM Estate 2023</b></i></div>
+        </footer>
+    </main>
+
+</body>
+<script src="{% static './js/htmx.min.js' %}"></script>
+<script>
+    document.body.addEventListener('htmx:configRequest', (event) => {
+      event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+    })
+</script>
+</html>

@@ -1,0 +1,61 @@
+{% extends 'index.html' %}
+
+
+{% load static %}
+<title>Agent List</title>
+{% block content %}
+    <link rel="stylesheet" href="{% static './css/agent-list.css' %}">
+</head>
+<body>
+    <section class="main-estate">
+        <main class="main-section">
+            <div class="pages">
+                <h2>Agent Property List</h2>
+                <div class="props">
+
+                    {% for property in property_list %}
+                    <div class="card">
+                        <a href="{% url 'estate-detail' property.property_id %}">
+                            <p class="like">{{property.date_posted |timesince}}</p>
+                            <img src="{{property.image.url}}" alt="">
+                            <div class="text-card">
+                                <div class="card-text">
+                                    <b>${{property.price}}</b>
+                                    <p>{{property.status}}</p>
+                                </div>
+                                <b>Description:</b><p>{{property.description}}</p>
+                                <p>Location: <b>{{property.property_location}}</b></p>
+                                <a href="#"><b>{{property.agency.agency_name}}</b></a>
+                            </div>                      
+                        </a>
+                    </div>
+                    {% endfor %}
+                    
+                </div>
+            </div>
+            <div class="property-owner-detail">
+                <h2>Agency Profile</h2>
+                {% if agency %}
+                <div>
+                    <img src="{{agency.agency_image.url}}" alt="agency logo">
+                    <h2>{{agency.agency_name}}</h2>
+                    <p><b>Number of properties listed: {{agency.property_count}}</b></p>
+                    <p>Location: {{agency.agent_location}}</p>
+                </div>
+                {% endif %}
+                <p>Availability: {{user.last_login}}</p>
+                <div class="new-property-section">
+                    <h2>Add New Property</h2>
+                    <form action="" method="post" enctype="multipart/form-data"> 
+                        {% csrf_token %}
+                        {{form.as_p}}
+                        <button style="padding: 8px 20px; background-color: black;
+                        color: aliceblue;border: none; cursor: pointer;">Submit</button>
+                    </form>
+                </div>
+
+            </div>
+        </main>
+    </section>
+</body>
+{% endblock %}

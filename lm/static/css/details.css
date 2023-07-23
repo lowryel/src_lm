@@ -1,0 +1,149 @@
+*{
+    padding: 0%;
+    margin: 0%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+p{
+    font-size: small;
+}
+
+h1, h2{
+    font-size: larger;
+    color: rgb(41, 74, 102);
+}
+
+.header{
+    padding: 30px 0;
+    background-color: rgb(114, 210, 240);
+}
+.header-nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: last baseline;
+}
+.nav-a-ton p{
+    background-color: rgba(176, 255, 176, 0.897);
+    padding: 2px 5px;
+}
+
+.main-section{
+    margin: 30px 100px;
+    /* display: grid;
+    grid-template-columns: 1fr 1fr 1fr; */
+}
+.nav-a-ton{
+    display: flex;
+    justify-content: space-between;
+    align-self: center;
+    margin-top: 30px;
+}
+.pages{
+    /* margin-bottom: 30px; */
+}
+.pages h2{
+    text-align: center;
+    font-size: larger;
+    /* padding: 20px; */
+}
+
+.props{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+}
+.card{
+    display: block;
+    padding: 20px;
+    margin: 10px;
+    border: 2px dotted violet;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+    background-color: rgb(223, 217, 211);
+    cursor: pointer;
+}
+.card:hover{
+    border: 2px solid black;
+    transition: ease-in-out 1s;
+}
+.card .like{
+    color: aqua;
+    text-align: right;
+    position: absolute;
+    top: 1;
+    right: 1;
+    cursor: pointer;
+    background-color: rgb(79, 87, 87);
+    padding: 10px;
+}
+.card img{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.card-text{
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+}
+
+.card-text p{
+    background-color: rgb(167, 245, 167);
+    padding: 2px 5px;
+}
+
+
+@media screen and (max-width:600px) {
+    .main-section{
+        margin: 0;
+        /* width: 100%; */
+    }
+    .card{
+        padding: 5px;
+        /* width: 100%; */
+    }
+    .main-section{
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+    .props{
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+}
+
+.agencies{
+    border: 2px dotted violet;
+}
+
+.agency{
+    display: block;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: bisque;
+    margin-bottom: 20px;
+}
+.owner-info img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.paginate{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.pagination{
+    display: flex;
+    justify-content: safe;
+    align-items: center;
+}
+
+.pagination li{
+    list-style-type: none;
+    padding: 10px;
+}

@@ -1,0 +1,18 @@
+.business-type{
+
+}
+
+.business-type img{
+    border: 1px solid black;
+    width: 100%;
+    height: 200px;
+}
+
+.status-types{
+    border: 1px solid rgba(77, 73, 73, 0.87);
+    display: grid;
+    align-items: center;
+    margin: 0 10px;
+    padding: 10px;
+    box-shadow: 2px 12px 25px;
+}

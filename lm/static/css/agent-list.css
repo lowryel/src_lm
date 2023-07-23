@@ -1,0 +1,124 @@
+*{
+    padding: 0%;
+    margin: 0%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+p{
+    font-size: small;
+}
+
+h1, h2{
+    font-size: larger;
+    color: rgb(41, 74, 102);
+}
+
+
+.pages h2{
+    text-align: center;
+    font-size: larger;
+    /* padding: 20px; */
+}
+
+.props{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.card{
+    display: block;
+    margin: 0 10px;
+    padding: 20px;
+    border: 2px dotted violet;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+    background-color: rgb(223, 217, 211);
+    cursor: pointer;
+}
+.card:hover{
+    border: 2px solid black;
+    transition: ease-in-out 1s;
+}
+.card .like{
+    color: aqua;
+    text-align: right;
+    position: absolute;
+    top: 1;
+    right: 1;
+    cursor: pointer;
+    background-color: rgb(79, 87, 87);
+    padding: 10px;
+}
+.card img{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.card-text{
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+}
+
+.card-text p{
+    background-color: rgb(167, 245, 167);
+    padding: 2px 5px;
+}
+.card a {
+    text-decoration: none;
+    color: rgb(99, 93, 93);
+}
+
+@media screen and (max-width:600px) {
+    .main-section{
+        margin: 0;
+        width: 100%;
+    }
+    .card{
+        padding: 5px;
+    }
+    .main-section{
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+    .props{
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+}
+
+.agencies{
+    border: 2px dotted violet;
+}
+
+.agency{
+    display: block;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: bisque;
+    margin-bottom: 20px;
+}
+.owner-info img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.paginate{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.pagination{
+    display: flex;
+    justify-content: safe;
+    align-items: center;
+}
+
+.pagination li{
+    list-style-type: none;
+    padding: 10px;
+}
