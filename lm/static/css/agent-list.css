@@ -68,7 +68,38 @@ h1, h2{
 }
 .card a {
     text-decoration: none;
-    color: rgb(99, 93, 93);
+    color: rgb(78, 93, 93);
+}
+
+.new-property-section{
+    margin-top: 30px;
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+}
+
+.new-property-section input{
+    padding: 8px 15px;
+    margin: 5px;
+    width: 80%;
+    border: none;
+    background-color: rgb(78, 82, 83);
+    color: white;
+}
+
+#id_description{
+    border: none;
+    background-color: rgb(102, 94, 94);
+    color: white;
+    width: 90%;
+}
+
+
+.property-owner-detail{
+    margin: 10px;
+}
+.owner-details img{
+    width: 100%;
 }
 
 @media screen and (max-width:600px) {

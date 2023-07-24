@@ -17,13 +17,13 @@
                     <div class="card">
                         <a href="{% url 'estate-detail' property.property_id %}">
                             <p class="like">{{property.date_posted |timesince}}</p>
-                            <img src="{{property.image.url}}" alt="">
+                            <img src="{{property.imageURL}}" alt="">
                             <div class="text-card">
                                 <div class="card-text">
                                     <b>${{property.price}}</b>
                                     <p>{{property.status}}</p>
                                 </div>
-                                <b>Description:</b><p>{{property.description}}</p>
+                                <b>Description:</b><p>{{property.description | truncatewords:10}}</p>
                                 <p>Location: <b>{{property.property_location}}</b></p>
                                 <a href="#"><b>{{property.agency.agency_name}}</b></a>
                             </div>                      
@@ -33,10 +33,11 @@
                     
                 </div>
             </div>
+
             <div class="property-owner-detail">
                 <h2>Agency Profile</h2>
                 {% if agency %}
-                <div>
+                <div class="owner-details">
                     <img src="{{agency.agency_image.url}}" alt="agency logo">
                     <h2>{{agency.agency_name}}</h2>
                     <p><b>Number of properties listed: {{agency.property_count}}</b></p>

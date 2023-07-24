@@ -12,12 +12,20 @@
     <main>
         <header class="header">
             <div class="header-nav">
-                <h1>LM Estate</h1>
+                <a style="text-decoration: none;" href="{% url 'home' %}"><h1>LM Estate</h1></a>
                 <a href="#contact">Reach Out</a>         
             </div>
             <div class="search">
-                <input type="text" name="q" id="value" placeholder="Search by: price, location, status">
-                <button>Search</button>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <input type="text" name="q" id="value" value="{{q}}" placeholder="Search by: price, location, status"
+                        hx-post="{% url 'home' %}"
+                        hx-trigger="keyup delay:500ms"
+                        hx-target="#card-list"
+                        hx-swap="innerHTML"
+                    >
+                    <button>Search</button>                     
+                </form>
             </div>
         </header>
         {% block content %}
@@ -26,28 +34,10 @@
                 <div class="pages">
                     <h2>Property List</h2>
                     <div class="props">
-
-                        {% for property in property_list %}
-                        <div class="card">
-                            <a href="{% url 'estate-detail' property.property_id %}">
-                            <p class="like">{{property.date_posted | date:"SHORT_DATE_FORMAT"}}</p>
-                            <img src="{{property.get_image}}" alt="">
-                            <div class="text-card">
-                                <div class="card-text">
-                                    <b>${{property.price}}</b>
-                                    <p>{{property.status}}</p>
-                                </div>
-                                <b>Description:</b><p>{{property.description}}</p>
-                                <p><b>Location: {{property.property_location}}</b></p>
-                                <a href="#"><b>{{property.agency.agency_name}}</b></a>
-                            </div>
-                            </a>
-                        </div>
-                        {% endfor %}
-
+                        {% include 'snippets/property-card.html' %}
                     </div>
+                    <div id="card-list"></div>
                 </div>
-
                 <div class="pages">
                     <h2>Find Agents</h2>
                     <div class="agencies">
@@ -76,15 +66,15 @@
                     <div class="testimony-list">
                         <div class="testimony-a">
                             <p><b>Eugene</b></p>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque velit nesciunt omnis illum tempora quae soluta dolor est suscipit ut.</p>
+                            <p>"I was so nervous about selling my house, but working with at LM Estate made the whole process so much easier. She was knowledgeable, responsive, and always went the extra mile to help me find the right buyer. I would highly recommend her to anyone looking to buy or sell a home."</p>
                         </div>
                         <div class="testimony-a">
                             <p><b>Edem</b></p>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta deserunt atque voluptates, impedit exercitationem neque fugit temporibus corporis. Cumque, quas!</p>
+                            <p>"I had been looking for a new home for months, and I was starting to get discouraged. But then I met LM Estate, and everything changed. She showed me a great selection of homes, and she was always available to answer my questions. I ended up buying my dream home, and it's all thanks to her."</p>
                         </div>
                         <div class="testimony-a">
                             <p><b>Abena</b></p>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, ipsum ipsa sunt numquam laborum dolor accusantium quibusdam eaque vel pariatur.</p>
+                            <p>"I was a first-time homebuyer, and I didn't know what to expect. But LM Estate was so patient and understanding. She took the time to explain everything to me, and she made sure that I was comfortable with every step of the process. I couldn't have asked for a better agent."</p>
                         </div>                            
                     </div>
                 </div>
@@ -128,7 +118,9 @@
                     </div>           
                 </main>
             </section>
-            <div style="text-align: center; color: rgb(53, 51, 50);"><i><b>Copyright &COPY; LM Estate 2023</b></i></div>
+            <div style="text-align: center; color: rgb(53, 51, 50);">
+                <i><b>Copyright &COPY; LM Estate 2023</b></i>
+            </div>
         </footer>
     </main>
 

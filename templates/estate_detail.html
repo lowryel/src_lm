@@ -13,11 +13,13 @@
             <div class="pages">
                 <div class="">
                     <h2>Property Details</h2>
+                    {% if property_detail %}
                     <div class="nav-a-ton">
-                        <p><b>Price: $200000</b></p>
-                        <p><b>Agent/ Agency</b></p>
-                        <p>12/03/23 - 13:24GMT</p>
+                        <p><b>Price: ${{property_detail.price}}</b></p>
+                        <p><b>Agent/ Agency: {{property_detail.agency.agency_name}}</b></p>
+                        <p>{{property_detail.date_posted}}</p>
                     </div>
+                    {% endif %}
                 </div>
 
                 <div class="props">
@@ -33,14 +35,14 @@
                         <div class="text-card">
                             <b>Description:</b><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, aliquid veniam. Ullam suscipit accusantium quia laboriosam. Nam saepe maiores maxime?</p>
                         </div>
-                    </div>  
+                    </div>
 
                     <div class="card">
                         <img src="{% static './img/dream-house.jpg' %}" alt="">
                         <div class="text-card">
                             <b>Description:</b><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, aliquid veniam. Ullam suscipit accusantium quia laboriosam. Nam saepe maiores maxime?</p>
                         </div>
-                    </div>  
+                    </div>
 
                     <div class="card">
                         <img src="{% static './img/dream-house.jpg' %}" alt="">
@@ -58,5 +60,31 @@
             </div>
         </main>
     </section>
+    <script>
+
+        function openImage(imageUrl) {
+            // Create a new window.
+            const newWindow = window.open(imageUrl, "_blank");
+
+            // Set the width and height of the new window.
+            newWindow.width = 600;
+            newWindow.height = 400;
+        }
+
+        // Add an event listener to the image.
+        const image = document.querySelectorAll(".card img");
+        image.forEach((i)=>{
+
+            i.addEventListener("click", () => {
+            // Get the image URL.
+            const imageUrl = i.getAttribute("src");
+
+            // Open the image in a new window.
+            openImage(imageUrl);
+            });
+        })
+
+    </script>
 </body>
+
 </html>

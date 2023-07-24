@@ -2,16 +2,18 @@ from django.shortcuts import render, redirect
 from .models import *
 from . forms import PropertyForm
 from django.core.paginator import Paginator
+from django.db.models import Q
 # Create your views here.
 
 
 def home(request):
+    q = request.POST.get('q' or None)
+    if q:
+        properties=Property.objects.filter(Q(status__icontains=q) | Q(property_location__icontains=q)).order_by("-date_posted")
+    else:
+        properties=Property.objects.all().order_by("-date_posted")
     agency = Agency.objects.all()[:3]
-    properties=Property.objects.all().order_by("-date_posted")
-    # gency = Agency.objects.get(agent = request.user)
-    # propertiies = Property.objects.get(agency = gency)
-    # image = propertiies.image.all()
-    # print(image.url)
+
     paginator = Paginator(properties, 4)
     page = request.GET.get('page')
     property_list = paginator.get_page(page)
@@ -19,8 +21,11 @@ def home(request):
     context={
         "property_list": property_list,
         "agency": agency,
+        # "q": q,
     }
     return render(request, 'index.html', context)
+
+
 
 def base(request):
     return render(request, "home.html")

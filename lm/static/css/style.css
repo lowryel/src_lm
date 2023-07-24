@@ -44,7 +44,6 @@ h1, h2{
     padding: 10px 12px;
     border: none;
     width: 30rem;
-
 }
 .search button{
     padding: 10px 12px;
@@ -97,6 +96,7 @@ h1, h2{
 }
 .card img{
     width: 100%;
+    height: 15rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -120,6 +120,14 @@ h1, h2{
 @media screen and (max-width:600px) {
     .main{
         padding: 10px 0;
+    }
+    .search{
+        display: flex;
+        margin-top: 10px;
+    }
+    .search input{
+        /* padding: 10px; */
+        width: fit-content;
     }
     .main-section{
         margin: 0 0;
@@ -232,7 +240,8 @@ h1, h2{
 }
 
 .reachOut{
-    margin: 20px;
+    /* margin: 20px; */
+    padding: 10px;
 }
 .reachOut button{
     background-color: burlywood;
@@ -264,6 +273,9 @@ h1, h2{
 }
 
 @media screen and (max-width:600px) {
+    .reachOut input{
+        width: fit-content;
+    }
     .footer-div{
         display: grid;
         grid-template-columns: 1fr;

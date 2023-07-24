@@ -5,7 +5,7 @@ from django.views.generic import FormView
 
 
 class PropertyForm(ModelForm):
-    # files = FileField(widget=forms.MultipleChoiceField(required=False))
+    image = forms.ImageField()
     class Meta:
         model = Property
         fields = ['property_location', 'price', 'description', 'status', 'image']

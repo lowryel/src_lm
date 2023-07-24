@@ -1,0 +1,23 @@
+<!-- {% block content %} -->
+{% for property in property_list %}
+{% csrf_token %}
+<div class="card">
+    <a href="{% url 'estate-detail' property.property_id %}">
+        <p class="like">{{property.date_posted | date:"SHORT_DATE_FORMAT"}}</p>
+        <img src="{{property.imageURL}}" alt="">
+        <div class="text-card">
+            <div class="card-text">
+                <b>${{property.price}}</b>
+                <p>{{property.status}}</p>
+            </div>
+            <b>Description:</b>
+            <p>{{property.description}}</p>
+            <p><b>Location: {{property.property_location}}</b></p>
+            <a href="#"><b>{{property.agency.agency_name}}</b></a>
+        </div>
+    </a>
+</div>
+{% endfor %}
+<!-- {% endblock %} -->
+
+

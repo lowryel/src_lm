@@ -54,11 +54,11 @@ def agency_property_count(sender, instance, created=True, *args, **kwargs):
 post_save.connect(agency_property_count, sender=Agency)
 
 
-class ImageModel(models.Model):
-    file = models.ImageField(upload_to='img')
+# class ImageModel(models.Model):
+#     file = models.ImageField(upload_to='img')
 
-    def __str__(self) -> str:
-        return self.file.url
+#     def __str__(self) -> str:
+#         return self.file.url
 
 
 PROPERTY_CHOICES = (("For Sale", "For Sale"),("Rent", "Rent"))
@@ -70,7 +70,7 @@ class Property(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2, default="0.00")
     description = models.TextField()
     date_posted = models.DateTimeField(auto_now_add=True)
-    image = models.ManyToManyField(ImageModel, blank=True)
+    image = models.ImageField(upload_to="img")
     status = models.CharField(choices=PROPERTY_CHOICES, max_length=64, default="For Sale")
 
     class Meta:
@@ -78,8 +78,12 @@ class Property(models.Model):
         verbose_name_plural = "Properties"
 
     @property
-    def get_image(self):
-        return self.image.all()
+    def imageURL(self):
+        try:
+            url = self.image.url
+        except:
+            url = ''
+        return url
 
 def agency_property_count(sender, instance, *args, **kwargs):
     print("pre_save property count 2")

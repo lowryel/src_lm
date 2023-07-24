@@ -49,13 +49,13 @@ h1, h2{
 
 .props{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     align-items: center;
 }
 .card{
     display: block;
     padding: 20px;
-    margin: 10px;
+    margin: 5px;
     border: 2px dotted violet;
     justify-content: center;
     align-items: center;
