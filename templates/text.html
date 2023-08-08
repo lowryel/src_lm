@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .form-area{
+        font-family: Verdana, 'Geneva', Tahoma, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        height: 100vh;
+    }
+    .agency{
+        background-color: bisque;
+        padding: 50px 50px;
+        margin: 50px;
+        height: 80vh;
+        width: 30vw;
+    }
+    .form-view span{
+        display: none;
+    }
+    .form-view ul{
+        display: none;
+    }
+    .form-view{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 30px;
+        background-color: rgb(218, 218, 186);
+    }
+    .form-view #id_username{
+        padding: 8px 12px;
+        border: none;
+        width: 100%;
+    }
+    .form-view #id_email{
+        padding: 8px 12px;
+        border: none;
+        width: 100%;
+    }
+    .form-view #id_password1{
+        padding: 8px 12px;
+        border: none;
+        width: 100%;
+    }
+    .form-view #id_image{
+        padding: 8px 12px;
+        background-color: aliceblue;
+        /* width: 30%; */
+    }
+    p{font-size: small;}
+
+    @media screen and (max-width:600px) {
+        .agency{
+            margin: 20px 10px;
+            padding: 50px 10px;
+            height: 60vh;
+            width: 100vw;
+        }
+        .form-view{
+            margin: 20px;
+        }
+        .form-view #id_password{
+            display: block;
+            width: 100%;  
+        }      
+    }
+    .valid-pass{
+        color: red;
+    }
+    button{
+        padding: 10px 20px;
+        background-color: black;
+        color: white;
+        border: none;
+    }
+</style>
+<body style="background-color: rgba(0, 0, 0, 0.877);">
+    <div class="form-area">
+        <div class="agency">
+            <span><a href="{% url 'home' %}">Home</a></span>
+            <h2>Add More Images for this Property</h2>
+            <b>Price: ${{images.price}}</b>
+            <div class="form-view">
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <button>Add</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>

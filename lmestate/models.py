@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save, pre_save
 import uuid
 
+from .multi_file_upload import handle_uploaded_file
 
 class Address(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -47,18 +48,15 @@ class Agency(models.Model):
 
     def __str__(self):
         return self.agency_name
+    
+    # def get_absolute_url(self):
+    #     return self.
 
 def agency_property_count(sender, instance, created=True, *args, **kwargs):
     print("pre_save property count")
 
 post_save.connect(agency_property_count, sender=Agency)
 
-
-# class ImageModel(models.Model):
-#     file = models.ImageField(upload_to='img')
-
-#     def __str__(self) -> str:
-#         return self.file.url
 
 
 PROPERTY_CHOICES = (("For Sale", "For Sale"),("Rent", "Rent"))
@@ -85,6 +83,10 @@ class Property(models.Model):
             url = ''
         return url
 
+    def __int__(self):
+        return self.id
+
+
 def agency_property_count(sender, instance, *args, **kwargs):
     print("pre_save property count 2")
     total_property=0
@@ -94,7 +96,30 @@ def agency_property_count(sender, instance, *args, **kwargs):
         total_property +=1
     instance.property_count=total_property
     print(instance.property_count)
-    item.save()
     return instance.property_count
 
 pre_save.connect(agency_property_count, sender=Agency)
+
+
+class ImageModel(models.Model):
+    property = models.ForeignKey(Property, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to="img")
+
+    # def __str__(self) -> str:
+    #     return self.image.url
+
+
+class Enquiry(models.Model):
+    # A model for potential clients to enquire about a property
+    property = models.ForeignKey(Property, on_delete=models.CASCADE, null=True)
+    email = models.EmailField(help_text="Enter a valid email")
+    description = models.TextField()
+    quote = models.IntegerField(help_text="Quote a figure")
+    time = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.email
+
+    class Meta:
+        verbose_name = "Enquiry"
+        verbose_name_plural = "Enquiry"

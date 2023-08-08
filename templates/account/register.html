@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .form-area{
+        font-family: Verdana, 'Geneva', Tahoma, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        height: 100vh;
+    }
+    .agency{
+        background-color: bisque;
+        padding: 50px 50px;
+        margin: 50px;
+        height: 80vh;
+        width: 30vw;
+    }
+    .form-view span{
+        display: none;
+    }
+    .form-view ul{
+        display: none;
+    }
+    .form-view #id_username{
+        padding: 8px 12px;
+        border: none;
+        width: 100%;
+    }
+    .form-view #id_email{
+        padding: 8px 12px;
+        border: none;
+        width: 100%;
+    }
+    .form-view #id_password1{
+        padding: 8px 12px;
+        border: none;
+        width: 100%;
+    }
+    .form-view #id_password2{
+        padding: 8px 12px;
+        border: none;
+        width: 100%;
+    }
+    p{font-size: small;}
+
+    @media screen and (max-width:600px) {
+        .agency{
+            margin: 20px 10px;
+            padding: 50px 10px;
+            height: 60vh;
+            width: 100vw;
+        }
+        .form-view{
+            margin: 20px;
+        }
+        .form-view #id_username{
+            display: block;
+            width: 100%;
+
+        }
+        .form-view #id_email{
+            display: block;
+            width: 100%;
+        }
+        .form-view #id_password{
+            display: block;
+            width: 100%;
+        }
+        .form-view #id_password2{
+            display: block;
+            width: 100%;
+        }
+        
+    }
+    .valid-pass{
+        color: red;
+    }
+</style>
+<body style="background-color: rgba(0, 0, 0, 0.877);">
+    <div class="form-area">
+        <div class="agency">
+            <span><p></p></span>
+            <h2>Signup</h2>
+            <div class="form-view">
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <button style="background-color: black;border: none;padding: 10px 20px; 
+                    color: white;cursor: pointer;">Signup</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    const passwd = document.querySelector("#id_password1");
+    const passvalid = document.querySelector(".agency p");
+    console.log(passwd.value);
+    passwd.addEventListener('input', ()=>{
+        console.log("hello");
+        if (passwd.value.length<=8){
+            console.log("hey there");
+            passvalid.innerText="Hello password invalid";
+            passvalid.classList.add("valid-pass");
+        }
+        else{
+            passvalid.classList.remove("valid-pass")
+            passvalid.innerText="";
+        }
+    })
+</script>
+</html>

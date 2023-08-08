@@ -29,6 +29,7 @@ INSTALLED_APPS = [
 
     # myapps
     "lmestate",
+    "account",
 
     # plugins
     "django_htmx",
@@ -47,6 +48,10 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "lm.urls"
+
+USERNAME_FIELD="email"
+
+
 
 TEMPLATES = [
     {

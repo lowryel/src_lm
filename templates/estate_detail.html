@@ -1,6 +1,6 @@
+{% extends 'index.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
+{% block content %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +9,7 @@
 </head>
 <body>
     <section class="main-estate">
-        <main class="main-section">
+        <main class="detail-section">
             <div class="pages">
                 <div class="">
                     <h2>Property Details</h2>
@@ -23,40 +23,28 @@
                 </div>
 
                 <div class="props">
+                    {% for property_image in images %}
                     <div class="card">
-                        <img src="{% static './img/dream-house.jpg' %}" alt="">
-                        <div class="text-card">
-                            <b>Description:</b><p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem corporis ratione quod? Ratione sequi possimus, quidem voluptates accusamus quam tempora.</p>
-                        </div>
+                        <img src="{{property_image.image.url}}" alt="">
                     </div>
-
-                    <div class="card">
-                        <img src="{% static './img/dream-house.jpg' %}" alt="">
-                        <div class="text-card">
-                            <b>Description:</b><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, aliquid veniam. Ullam suscipit accusantium quia laboriosam. Nam saepe maiores maxime?</p>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <img src="{% static './img/dream-house.jpg' %}" alt="">
-                        <div class="text-card">
-                            <b>Description:</b><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, aliquid veniam. Ullam suscipit accusantium quia laboriosam. Nam saepe maiores maxime?</p>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <img src="{% static './img/dream-house.jpg' %}" alt="">
-                        <div class="text-card">
-                            <b>Description:</b><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus similique nemo aspernatur recusandae alias numquam ullam eveniet saepe minima reiciendis!</p>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
             <div class="description">
-                <div>
+                <div class="property-description">
                     <b>Property Detailed Description</b>
-                    <p><li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea laborum dolorem beatae, eius minus delectus! Eaque sequi repudiandae voluptatem! Odio voluptatum asperiores accusamus fugiat, perspiciatis veniam, veritatis tempore blanditiis neque voluptate, quam rem ipsa et provident temporibus sapiente cupiditate quasi a sint in! Consequatur cum sapiente totam rem voluptatum neque ratione earum dolor alias. Iusto, adipisci consectetur. Adipisci, odio. Veniam.</li></p>
+                    {% if property_detail %}
+                    <ul><li>{{property_detail.description | linebreaksbr}}</li></ul>
+                    {% endif %}
                 </div>
+            </div>
+            <div class="enquiry-form">
+                <h2>Launch a Bid</h2>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <button style="background-color: black; padding: 8px 25px; color: white; border: none;cursor: pointer;">Submit</button>
+                </form>
             </div>
         </main>
     </section>
@@ -76,15 +64,14 @@
         image.forEach((i)=>{
 
             i.addEventListener("click", () => {
-            // Get the image URL.
-            const imageUrl = i.getAttribute("src");
+                // Get the image URL.
+                const imageUrl = i.getAttribute("src");
 
-            // Open the image in a new window.
-            openImage(imageUrl);
+                // Open the image in a new window.
+                openImage(imageUrl);
             });
         })
 
     </script>
 </body>
-
-</html>
+{% endblock %}

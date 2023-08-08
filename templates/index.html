@@ -12,17 +12,18 @@
     <main>
         <header class="header">
             <div class="header-nav">
-                <a style="text-decoration: none;" href="{% url 'home' %}"><h1>LM Estate</h1></a>
-                <a href="#contact">Reach Out</a>         
+                <a style="text-decoration: none;" href="{% url 'home' %}"><h1>LM Estates Manager</h1></a>
+                <div class="navbar">
+                    <a href="{% url 'register' %}">Register</a>
+                    <a href="{% url 'login' %}">Login</a>
+                    <a href="{% url 'logout' %}">Logout</a>
+                    <a style="background-color: rgb(233, 138, 138); padding: 5px 12px;" href="#contact">Reach Out</a>                     
+                </div>
             </div>
             <div class="search">
                 <form action="" method="post">
                     {% csrf_token %}
                     <input type="text" name="q" id="value" value="{{q}}" placeholder="Search by: price, location, status"
-                        hx-post="{% url 'home' %}"
-                        hx-trigger="keyup delay:500ms"
-                        hx-target="#card-list"
-                        hx-swap="innerHTML"
                     >
                     <button>Search</button>                     
                 </form>
@@ -36,15 +37,16 @@
                     <div class="props">
                         {% include 'snippets/property-card.html' %}
                     </div>
-                    <div id="card-list"></div>
+                    <!-- <div id="card-list"></div> -->
                 </div>
                 <div class="pages">
                     <h2>Find Agents</h2>
                     <div class="agencies">
+                        {% if request.user.is_authenticated %}
                         {% for agent in agency %}
                         <div class="agency">
                             <div class="owner-info">
-                                <img src="{% static './img/dream-house.jpg' %}" alt="">
+                                <img src="{{agent.agency_image.url}}" alt="">
                                 <a href="{% url 'agent-list' agent.id %}"><p><b>{{agent.agency_name}}</b></p></a>
                             </div>
                             <div class="owner-info-text">
@@ -54,6 +56,21 @@
                             </div>
                         </div>
                         {% endfor %}
+                        {% else %}
+                        {% for agent in agency %}
+                        <div class="agency">
+                            <div class="owner-info">
+                                <img src="{{agent.agency_image.url}}" alt="">
+                                <p><b>{{agent.agency_name}}</b></p>
+                            </div>
+                            <div class="owner-info-text">
+                                <p>Number of properties listed: {{agent.property_count}}</p>
+                                <p>Agency Location: {{agent.agent_location}}</p>
+                                <p>Registered Since: {{agent.date_registered | timesince}}</p>                     
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
 
                         <p class="more-owners"><a href="">More</a></p>
                     </div>
@@ -66,7 +83,7 @@
                     <div class="testimony-list">
                         <div class="testimony-a">
                             <p><b>Eugene</b></p>
-                            <p>"I was so nervous about selling my house, but working with at LM Estate made the whole process so much easier. She was knowledgeable, responsive, and always went the extra mile to help me find the right buyer. I would highly recommend her to anyone looking to buy or sell a home."</p>
+                            <p>"I was so nervous about selling my house, but working with LM Estate made the whole process so much easier. She was knowledgeable, responsive, and always went the extra mile to help me find the right buyer. I would highly recommend her to anyone looking to buy or sell a home."</p>
                         </div>
                         <div class="testimony-a">
                             <p><b>Edem</b></p>
@@ -112,10 +129,34 @@
                         </div>
                     </div>
                     <div id="contact" class="reachOut">
-                        <p><b>Reach out to us for more enquiry</b></p>
-                        <input type="email" name="email" placeholder="Email">
-                        <button type="button">Submit</button>
-                    </div>           
+                        <div class="locations">
+                            <h2>Locations</h2>
+                            <div class="property-locations">
+                                <span>
+                                    <p>East Legon</p>
+                                    <p>Adjiringanor</p>
+                                    <p>Ogbojo</p>
+                                    <p>Madina</p>
+                                    <p>Botwe</p>
+                                    <p>North Legon</p>
+                                    <p>Shiashie</p>
+                                    <p>Adenta</p>
+                                    <p>Riz Junction</p>
+                                </span>
+                                <span>
+                                    <p>Bawaleshie</p>
+                                    <p>East Legon Hills</p>
+                                    <p>Estate</p>
+                                    <p>UPSA</p>
+                                    <p>Adabraka</p>
+                                    <p>Manet</p>
+                                    <p>Spintex</p>
+                                    <p>Cocacola</p>
+                                    <p>Nungua</p>
+                                </span>                            
+                            </div>
+                        </div>      
+                    </div>  
                 </main>
             </section>
             <div style="text-align: center; color: rgb(53, 51, 50);">

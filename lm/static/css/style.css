@@ -21,6 +21,7 @@ h1, h2{
     padding: 30px 0;
     background-color: rgba(38, 49, 53, 0.877);
 }
+
 .header-nav{
     display: flex;
     justify-content: space-between;
@@ -33,6 +34,19 @@ h1, h2{
 .header-nav a{
     color: whitesmoke;
     text-decoration: underline;
+}
+
+.navbar a{
+    text-decoration: none;
+    margin: 10px;
+}
+
+.navbar a:hover{
+    background-color: antiquewhite;
+    transition: ease-in-out 100ms;
+    transform: translateX(5deg);
+    padding: 5px 10px;
+    color: black;
 }
 
 .search{
@@ -73,7 +87,6 @@ h1, h2{
 .card{
     display: block;
     padding: 20px;
-    border: 2px dotted violet;
     justify-content: center;
     align-items: center;
     margin-bottom: 30px;
@@ -126,8 +139,16 @@ h1, h2{
         margin-top: 10px;
     }
     .search input{
-        /* padding: 10px; */
         width: fit-content;
+    }
+    .header-nav{
+        display: block;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    .navbar a{
+        font-size: small;
     }
     .main-section{
         margin: 0 0;
@@ -186,6 +207,7 @@ h1, h2{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: 20px;
 }
 
 .testimony h2{
@@ -194,7 +216,14 @@ h1, h2{
 
 .testimony-a{
     border-left: 2px solid rgb(163, 154, 154);
+    padding: 10px;
 }
+
+.testimony-a:hover{
+    box-shadow: 2px 5px 12px rgb(146, 135, 137);
+    transition: ease-in-out 1s;
+}
+
 .testimony-a p{
     padding-left: 5px;
     font-style: italic;
@@ -229,7 +258,7 @@ h1, h2{
 }
 
 .footer{
-    background-color: rgba(52, 31, 53, 0.829);
+    background: linear-gradient(to bottom, #2e3b41, #477e94e3);
     color: whitesmoke;
     height: 50vh;
 }
@@ -239,37 +268,23 @@ h1, h2{
     grid-template-columns: 1fr 1fr;
 }
 
+.property-locations{
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.locations b{
+    text-align: center;
+}
+
+.locations h2{
+    color: #c0c1c2e3;
+}
+
 .reachOut{
-    /* margin: 20px; */
     padding: 10px;
-}
-.reachOut button{
-    background-color: burlywood;
-    border: none;
-    padding: 8px 20px;
-    border-radius: 10px;
-    cursor: pointer;
-}
-
-.reachOut button:hover{
-    background-color: burlywood;
-    border: 1px solid white;
-    transition: ease-in-out 1s;
-}
-
-.reachOut input{
-    padding: 8px;
-    background-color: antiquewhite;
-    border: none;
-    border-radius: 20px;
-    color: cornflowerblue;
-    width: 20rem;
-}
-
-.reachOut input:hover{
-    background-color: rgb(197, 210, 211);
-    transform: translate(2s);
-    transition: ease-in 1s;
 }
 
 @media screen and (max-width:600px) {

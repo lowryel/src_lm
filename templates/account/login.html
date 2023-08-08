@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .form-area{
+        font-family: Verdana, 'Geneva', Tahoma, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        height: 100vh;
+    }
+    .agency{
+        background-color: bisque;
+        padding: 50px 50px;
+        margin: 50px;
+        height: 80vh;
+        width: 30vw;
+    }
+    .agency h2{
+        text-align: center;
+    }
+    .form-view span{
+        display: none;
+    }
+    .form-view ul{
+        display: none;
+    }
+    .form-view input{
+        padding: 8px 12px;
+        width: 100%;
+    }
+
+    .form-view #id_password{
+        padding: 8px 12px;
+        border: none;
+        width: 100%;
+    }
+
+    p{font-size: small;}
+
+    @media screen and (max-width:600px) {
+        .agency{
+            margin: 20px 10px;
+            padding: 50px 10px;
+            height: 60vh;
+            width: 100vw;
+        }
+        .form-view{
+            margin: 20px;
+        }
+    }
+</style>
+<body style="background-color: rgba(0, 0, 0, 0.877);">
+    <div class="form-area">
+        <div class="agency">
+            <h2>Login</h2>
+            <div class="form-view">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <label for="username">Username</label>
+                    <input type="text" name="username" placeholder="Username"><br>
+                    <label for="password">Password</label>
+                    <input type="password" name="password" placeholder="Password"><br>
+                    <button style="background-color: black;border: none;padding: 10px 20px; 
+                    color: white;cursor: pointer;">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
