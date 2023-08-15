@@ -48,7 +48,7 @@ class Agency(models.Model):
 
     def __str__(self):
         return self.agency_name
-    
+
     # def get_absolute_url(self):
     #     return self.
 
@@ -56,7 +56,6 @@ def agency_property_count(sender, instance, created=True, *args, **kwargs):
     print("pre_save property count")
 
 post_save.connect(agency_property_count, sender=Agency)
-
 
 
 PROPERTY_CHOICES = (("For Sale", "For Sale"),("Rent", "Rent"))
@@ -83,6 +82,11 @@ class Property(models.Model):
             url = ''
         return url
 
+
+    @property
+    def agency_property_enquiry(self): # returning properties that enquiry was made for
+        return self.enquiry_set.all()
+    
     def __int__(self):
         return self.id
 

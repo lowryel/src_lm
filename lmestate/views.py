@@ -5,6 +5,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.views.generic import CreateView
 # Create your views here.
+from django.db.models import Count
 
 
 def home(request):
@@ -33,7 +34,6 @@ def base(request):
 
 
 def agentList(request, pk):
-
     if request.method == "POST":
         form = PropertyForm(request.POST, request.FILES)
         if form.is_valid():
@@ -46,6 +46,10 @@ def agentList(request, pk):
         try:
             agency = Agency.objects.get(id=pk, agent=request.user)
             agency_property=Property.objects.filter(agency=agency)
+            enquiry=[i.agency_property_enquiry for i in agency_property]
+            for b in enquiry:
+                for i in b:
+                    print(i)
         except Agency.DoesNotExist:
             return redirect("home")
     else:
@@ -55,6 +59,7 @@ def agentList(request, pk):
         "property_list": agency_property,
         "agency": agency,
         "form": form,
+        "enquiries":enquiry,
     }
     return render(request, 'agent-list.html', context)
 
@@ -116,6 +121,12 @@ def estate_detail(request, property_id):
 def property_images_add(request, id):
     form = PropertyImageUploadForm()
     property = Property.objects.get(id=id)
+    images = ImageModel.objects.filter(property=property)
+    total=0
+    for image in images:
+        total +=1
+    print(f"{total} images for {property}")
+
     if request.method=="POST":
         form = PropertyImageUploadForm(request.POST, request.FILES)
         if form.is_valid():

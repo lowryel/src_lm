@@ -24,6 +24,9 @@ h1, h2{
     justify-content: space-between;
     align-items: last baseline;
 }
+
+
+
 .nav-a-ton p{
     background-color: rgba(176, 255, 176, 0.897);
     padding: 2px 5px;
@@ -133,8 +136,8 @@ h1, h2{
     .enquiry-form #id_quote{
         width: 80%;
     }
-    .main-section{
-        margin: 0;
+    .detail-section{
+        margin: 10px 10px;
     }
     .card{
         padding: 5px;

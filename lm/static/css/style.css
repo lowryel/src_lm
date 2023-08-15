@@ -216,13 +216,14 @@ h1, h2{
 
 .testimony-a{
     border-left: 2px solid rgb(163, 154, 154);
-    padding: 10px;
-}
-
-.testimony-a:hover{
+    padding: 10px; 
     box-shadow: 2px 5px 12px rgb(146, 135, 137);
     transition: ease-in-out 1s;
 }
+
+/* .testimony-a:hover{
+
+} */
 
 .testimony-a p{
     padding-left: 5px;
@@ -257,15 +258,18 @@ h1, h2{
     padding: 10px;
 }
 
-.footer{
+#fooTER{
     background: linear-gradient(to bottom, #2e3b41, #477e94e3);
     color: whitesmoke;
-    height: 50vh;
+    /* height: 50vh; */
 }
 
 .footer-div{
     display: grid;
     grid-template-columns: 1fr 1fr;
+}
+.contact-info h2{
+    color: rgba(221, 223, 223, 0.89);
 }
 
 .property-locations{
@@ -281,6 +285,7 @@ h1, h2{
 
 .locations h2{
     color: #c0c1c2e3;
+    text-align: center;
 }
 
 .reachOut{

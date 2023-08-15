@@ -11,20 +11,27 @@
 <body class="main-body" id="container">
     <main>
         <header class="header">
+
             <div class="header-nav">
                 <a style="text-decoration: none;" href="{% url 'home' %}"><h1>LM Estates Manager</h1></a>
+                {% if request.user.is_authenticated %}
                 <div class="navbar">
-                    <a href="{% url 'register' %}">Register</a>
-                    <a href="{% url 'login' %}">Login</a>
                     <a href="{% url 'logout' %}">Logout</a>
                     <a style="background-color: rgb(233, 138, 138); padding: 5px 12px;" href="#contact">Reach Out</a>                     
                 </div>
+                {% else %}
+                <div class="navbar">
+                    <a href="{% url 'register' %}">Register</a>
+                    <a href="{% url 'login' %}">Login</a>
+                </div>
+                {% endif %}
             </div>
+
             <div class="search">
                 <form action="" method="post">
                     {% csrf_token %}
-                    <input type="text" name="q" id="value" value="{{q}}" placeholder="Search by: price, location, status"
-                    >
+                    <input type="text" name="q" id="value" value="{{q}}" 
+                    placeholder="Search by: location, status">
                     <button>Search</button>                     
                 </form>
             </div>
@@ -35,6 +42,7 @@
                 <div class="pages">
                     <h2>Property List</h2>
                     <div class="props">
+                        <!-- property cards are coming from a property-card.html file -->
                         {% include 'snippets/property-card.html' %}
                     </div>
                     <!-- <div id="card-list"></div> -->
@@ -43,33 +51,33 @@
                     <h2>Find Agents</h2>
                     <div class="agencies">
                         {% if request.user.is_authenticated %}
-                        {% for agent in agency %}
-                        <div class="agency">
-                            <div class="owner-info">
-                                <img src="{{agent.agency_image.url}}" alt="">
-                                <a href="{% url 'agent-list' agent.id %}"><p><b>{{agent.agency_name}}</b></p></a>
+                            {% for agent in agency %}
+                            <div class="agency">
+                                <div class="owner-info">
+                                    <img src="{{agent.agency_image.url}}" alt="">
+                                    <a href="{% url 'agent-list' agent.id %}"><p><b>{{agent.agency_name}}</b></p></a>
+                                </div>
+                                <div class="owner-info-text">
+                                    <p>Number of properties listed: {{agent.property_count}}</p>
+                                    <p>Agency Location: {{agent.agent_location}}</p>
+                                    <p>Registered Since: {{agent.date_registered | timesince}}</p>                     
+                                </div>
                             </div>
-                            <div class="owner-info-text">
-                                <p>Number of properties listed: {{agent.property_count}}</p>
-                                <p>Agency Location: {{agent.agent_location}}</p>
-                                <p>Registered Since: {{agent.date_registered | timesince}}</p>                     
-                            </div>
-                        </div>
-                        {% endfor %}
+                            {% endfor %}
                         {% else %}
-                        {% for agent in agency %}
-                        <div class="agency">
-                            <div class="owner-info">
-                                <img src="{{agent.agency_image.url}}" alt="">
-                                <p><b>{{agent.agency_name}}</b></p>
+                            {% for agent in agency %}
+                            <div class="agency">
+                                <div class="owner-info">
+                                    <img src="{{agent.agency_image.url}}" alt="">
+                                    <p><b>{{agent.agency_name}}</b></p>
+                                </div>
+                                <div class="owner-info-text">
+                                    <p>Number of properties listed: {{agent.property_count}}</p>
+                                    <p>Agency Location: {{agent.agent_location}}</p>
+                                    <p>Registered Since: {{agent.date_registered | timesince}}</p>                     
+                                </div>
                             </div>
-                            <div class="owner-info-text">
-                                <p>Number of properties listed: {{agent.property_count}}</p>
-                                <p>Agency Location: {{agent.agent_location}}</p>
-                                <p>Registered Since: {{agent.date_registered | timesince}}</p>                     
-                            </div>
-                        </div>
-                        {% endfor %}
+                            {% endfor %}
                         {% endif %}
 
                         <p class="more-owners"><a href="">More</a></p>
@@ -96,7 +104,7 @@
                     </div>
                 </div>
             </div>
-
+            <!-- pagination views -->
             <div class="pagination">
                 <div class="step-links">
                 {% if property_list.has_previous %}
@@ -120,12 +128,22 @@
                     <div class="reachOut reach">
                         <div class="contact-info">
                             <h2>LM ESTATES</h2>
-                            <li>Email:lmestates@lm.com</li>
-                            <li>Phone: +233544598658</li>
+                            
+                            <p><label for="email"><img style="height: 10px; margin-right: 5px;" src="{% static './img/mail.svg' %}" alt=""></label>lmestates@lm.com</p>
+                            
+                            <p><label for="phone"><img style="height: 10px; margin-right: 5px;" src="{% static './img/phone.svg' %}" alt=""></label>+233544598658</p>
                             <div>
                                 <p>Location: Cresent Avenue</p>
                                 <p>Hse No. 12, Damson Street</p>
                             </div>
+                        </div>
+                        <div style="margin-top: 20px;">
+                            <hr>
+                            <span>
+                                <a href="#"><img style="height: 15px; margin: 10px;" src="{% static './img/facebook.svg' %}" alt="follow us on facebook"></a>
+                                <a href="#"><img style="height: 15px; margin: 10px;" src="{% static './img/tweeticon.svg' %}" alt="tweet at us"></a>
+                                <a href="#"><img style="height: 15px; margin: 10px;" src="{% static './img/insta.svg' %}" alt="instagram"></a>
+                            </span>
                         </div>
                     </div>
                     <div id="contact" class="reachOut">
@@ -158,10 +176,10 @@
                         </div>      
                     </div>  
                 </main>
+                <div style="text-align: center; color: rgb(53, 51, 50); margin-top: 80px;">
+                    <i><p>Copyright &COPY; LM Estate 2023</p></i>
+                </div>
             </section>
-            <div style="text-align: center; color: rgb(53, 51, 50);">
-                <i><b>Copyright &COPY; LM Estate 2023</b></i>
-            </div>
         </footer>
     </main>
 
