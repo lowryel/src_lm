@@ -28,7 +28,6 @@ def home(request):
     return render(request, 'index.html', context)
 
 
-
 def base(request):
     return render(request, "home.html")
 
@@ -121,11 +120,11 @@ def estate_detail(request, property_id):
 def property_images_add(request, id):
     form = PropertyImageUploadForm()
     property = Property.objects.get(id=id)
-    images = ImageModel.objects.filter(property=property)
-    total=0
-    for image in images:
-        total +=1
-    print(f"{total} images for {property}")
+    # images = ImageModel.objects.filter(property=property)
+    # total=0
+    # for image in images:
+    #     total +=1
+    # print(f"{total} images for {property}")
 
     if request.method=="POST":
         form = PropertyImageUploadForm(request.POST, request.FILES)

@@ -82,7 +82,6 @@ class Property(models.Model):
             url = ''
         return url
 
-
     @property
     def agency_property_enquiry(self): # returning properties that enquiry was made for
         return self.enquiry_set.all()
