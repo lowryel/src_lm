@@ -11,3 +11,5 @@
 
 - We are working on getting an agent to sale your property for you. This requires a lot of trust hence why it is taking time.
 - We want to make it secure and trustworthy to deal on this platform
+
+- favicon - the image that appears on the browser tab `<link rel="icon" href="{% static './img/dream-house.jpg' %}" type="png">`
