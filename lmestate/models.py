@@ -52,20 +52,24 @@ class Agency(models.Model):
     # def get_absolute_url(self):
     #     return self.
 
-def agency_property_count(sender, instance, created=True, *args, **kwargs):
-    print("pre_save property count")
+# def agency_property_count(sender, instance, *args, **kwargs):
+#     print("pre_save property count")
+#     # instance.save()
+#     total=instance.property_set.count()
+#     print(total)
+#     instance.property_count=total
+#     return instance.property_count
+# pre_save.connect(agency_property_count, sender=Agency)
 
-post_save.connect(agency_property_count, sender=Agency)
 
 
 PROPERTY_CHOICES = (("For Sale", "For Sale"),("Rent", "Rent"))
-
 class Property(models.Model):
     property_id = models.UUIDField(default=uuid.uuid4, unique=True)
     agency = models.ForeignKey(Agency, on_delete=models.CASCADE, null=True)
     property_location = models.CharField(max_length=512, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, default="0.00")
-    description = models.TextField()
+    description = models.TextField(null=True)
     date_posted = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to="img")
     status = models.CharField(choices=PROPERTY_CHOICES, max_length=64, default="For Sale")
@@ -73,6 +77,9 @@ class Property(models.Model):
     class Meta:
         verbose_name="Property"
         verbose_name_plural = "Properties"
+
+    # def get_description(self):
+    #     return self.description.split("\n")
 
     @property
     def imageURL(self):
@@ -92,16 +99,11 @@ class Property(models.Model):
 
 def agency_property_count(sender, instance, *args, **kwargs):
     print("pre_save property count 2")
-    total_property=0
-    agent=instance.id
-    agency_property = Property.objects.filter(agency=agent)
-    for item in agency_property:
-        total_property +=1
-    instance.property_count=total_property
-    print(instance.property_count)
+    count = instance.property_set.count()
+    instance.property_count=count
     return instance.property_count
-
 pre_save.connect(agency_property_count, sender=Agency)
+
 
 
 class ImageModel(models.Model):
@@ -126,3 +128,4 @@ class Enquiry(models.Model):
     class Meta:
         verbose_name = "Enquiry"
         verbose_name_plural = "Enquiry"
+

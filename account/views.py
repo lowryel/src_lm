@@ -43,8 +43,8 @@ def login_view(request):
             return redirect('home')
         else:
             return redirect('login')
-
     return render(request, 'account/login.html')
+
 
 def logout_view(request):
     logout(request)

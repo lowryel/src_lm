@@ -1,8 +1,17 @@
 from pathlib import Path
 import os
+import environ
+
+
+env = environ.Env(  # <-- Updated!
+    # set casting, default value
+    DEBUG=(bool, False),
+)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+# Take environment variables from .env file
+environ.Env.read_env(BASE_DIR / '.env')  # <-- Updated!
 
 
 # Quick-start development settings - unsuitable for production
@@ -51,7 +60,7 @@ ROOT_URLCONF = "lm.urls"
 
 USERNAME_FIELD="email"
 
-
+CSRF_TRUSTED_ORIGINS = ["http://localhost:8000", "http://localhost:8000/*"]
 
 TEMPLATES = [
     {
@@ -112,6 +121,27 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
+
+
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'lm/static'),
+# ]
+
+# AWS_ACCESS_KEY_ID = ""
+# AWS_SECRET_ACCESS_KEY = ""
+# AWS_STORAGE_BUCKET_NAME = 'lmestate'
+# AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
+# AWS_S3_OBJECT_PARAMETERS = {
+#     'CacheControl': 'max-age=86400',
+# }
+
+# AWS_STATIC_LOCATION = 'static/'
+# STATICFILES_STORAGE = 'lm.storage_backend.StaticStorage'
+# STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, AWS_STATIC_LOCATION)
+
+# AWS_PUBLIC_MEDIA_LOCATION = 'media/'
+# DEFAULT_FILE_STORAGE = 'lm.storage_backend.MediaStorage'
 
 
 # Static files (CSS, JavaScript, Images)

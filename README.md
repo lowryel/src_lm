@@ -9,7 +9,17 @@
 - However, to sell a property, you need to create an account as a user since you have to list your property.
 - You can speak to any agency who will assign you an agent to assist you in finding your next property.
 
-- We are working on getting an agent to sale your property for you. This requires a lot of trust hence why it is taking time.
+- We are working on getting an agent to sale your property for you. This requires a lot of trust hence why it is        taking time.
 - We want to make it secure and trustworthy to deal on this platform
 
 - favicon - the image that appears on the browser tab `<link rel="icon" href="{% static './img/dream-house.jpg' %}" type="png">`
+
+
+- Make a rolling update to your application without any downtime
+`kubectl set image deployments/nginx nginx=nginx:v0.21`
+Also, rollback to the previous app version with this command
+`kubectl rollout undo deployments/nginx`
+
+- Command to start gunicorn config
+`gunicorn -c conf/gunicorn_config.py lm.asgi`
+

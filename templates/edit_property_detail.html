@@ -1,0 +1,43 @@
+{% extends "index.html" %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block head_title %} Edit Property || {{block.super}}{% endblock head_title %}</title>
+</head>
+{% block content %}
+<style>
+    .edit-property{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #id_property_location, #id_price, #id_description, #id_status, #id_image{
+        display: block;
+        justify-content: flex-start;
+        margin-bottom: 10px;
+        padding: 15px;
+        width: 85%;
+    }
+    #id_image{
+        background-color: black;
+    }
+</style>
+<body>
+    <main >
+        <section style="margin: 30px;">
+            <div class="edit-property">
+                <div>
+                    <h2>Update Property</h2>
+                    <form action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{form.as_p}}
+                        <button style="border: none;background-color: rgb(209, 209, 209);color: white; padding: 8px 15px;" >Submit</button>
+                    </form>                    
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+{% endblock %}
+</html>

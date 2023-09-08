@@ -60,13 +60,15 @@
         <div class="agency">
             <h2>Login</h2>
             <div class="form-view">
-                <form action="" method="post">
+                <form id="login-form" action="" method="post">
                     {% csrf_token %}
                     <label for="username">Username</label>
                     <input type="text" name="username" placeholder="Username"><br>
                     <label for="password">Password</label>
                     <input type="password" name="password" placeholder="Password"><br>
-                    <button style="background-color: black;border: none;padding: 10px 20px; 
+                    <button hx-post="{% url 'login' %}"
+                            hx-target="#login-form"
+                     style="background-color: black;border: none;padding: 10px 20px; 
                     color: white;cursor: pointer;">Login</button>
                 </form>
             </div>

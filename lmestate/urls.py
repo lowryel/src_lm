@@ -8,5 +8,7 @@ urlpatterns = [
     path("base/", base, name="base"),
     path("address/", address, name="address"),
     path("agencycreate/", agencycreate, name="create-agency"),
-    path("property_images_add/<int:id>/", property_images_add, name="add-properties"),
+    path("property-images-add/<int:id>/", property_images_add, name="add-properties"),
+    path("edit-property-info/<int:id>/", edit_property_detail, name="edit-property-info"),
+    path("delete-property-image/<int:id>/", deleteImage, name="delete-property-image"),
 ]

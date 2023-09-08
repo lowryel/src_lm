@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LM ESTATE</title>
+    <title>{% block head_title %} LM ESTATE {% endblock head_title %}</title>
     <link rel="stylesheet" href="{% static './css/style.css' %}">
-    <link rel="icon" href="{% static './img/dream-house.jpg' %}" type="png">
+    <link rel="icon" href="{% static './img/lm.png' %}" type="png">
     <!-- <script src="{% static 'https://unpkg.com/htmx.org@1.9.3' %}" integrity="sha384-lVb3Rd/Ca0AxaoZg5sACe8FJKF0tnUgR2Kd7ehUOG5GCcROv5uBIZsOqovBAcWua" crossorigin="anonymous"></script> -->
 </head>
 <body class="main-body" id="container">
@@ -36,6 +36,17 @@
                     <button>Search</button>                     
                 </form>
             </div>
+            <div style="color: rgb(17, 15, 13); display: flex; justify-content: center; align-items: center;">
+                {% for message in messages %}
+                <p id="message" style="text-align: center;background-color: aqua; padding: 3px 5px;">
+                    {% if message %}
+                    {{message}}
+                    {% else %}
+                    {{empty}}
+                    {% endif %}                    
+                </p>
+                {% endfor %}
+            </div>
         </header>
         {% block content %}
         <section class="main-estate">
@@ -46,7 +57,6 @@
                         <!-- property cards are coming from a property-card.html file -->
                         {% include 'snippets/property-card.html' %}
                     </div>
-                    <!-- <div id="card-list"></div> -->
                 </div>
                 <div class="pages">
                     <h2>Find Agents</h2>
@@ -59,9 +69,8 @@
                                     <a href="{% url 'agent-list' agent.id %}"><p><b>{{agent.agency_name}}</b></p></a>
                                 </div>
                                 <div class="owner-info-text">
-                                    <p>Number of properties listed: {{agent.property_count}}</p>
                                     <p>Agency Location: {{agent.agent_location}}</p>
-                                    <p>Registered Since: {{agent.date_registered | timesince}}</p>                     
+                                    <p>Registered Since: {{agent.date_registered | timesince}}</p>
                                 </div>
                             </div>
                             {% endfor %}
@@ -73,9 +82,8 @@
                                     <p><b>{{agent.agency_name}}</b></p>
                                 </div>
                                 <div class="owner-info-text">
-                                    <p>Number of properties listed: {{agent.property_count}}</p>
                                     <p>Agency Location: {{agent.agent_location}}</p>
-                                    <p>Registered Since: {{agent.date_registered | timesince}}</p>                     
+                                    <p>Registered Since: {{agent.date_registered | timesince}}</p>
                                 </div>
                             </div>
                             {% endfor %}

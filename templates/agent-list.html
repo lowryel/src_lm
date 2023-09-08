@@ -2,7 +2,7 @@
 
 
 {% load static %}
-<title>Agent List</title>
+<title>{% block head_title %}Agent List || {{block.super}}{% endblock head_title %}</title>
 {% block content %}
     <link rel="stylesheet" href="{% static './css/agent-list.css' %}">
 </head>
@@ -29,9 +29,10 @@
                             </div>                      
                         </a>
                         <hr>
-                        <div style="display: flex; justify-content: center; align-items: center; background-color: rgb(59, 49, 49); padding: 5px 0; font-size: small;">
-                            <a style="color: rgb(250, 250, 250);display: flex;" 
+                        <div style="display: flex; justify-content: center; align-items: center;  padding: 5px 0; font-size: small;">
+                            <a style="color: rgb(250, 250, 250);display: flex; margin: 5px;background-color: rgb(59, 49, 49);padding: 5px 10px;" 
                             href="{% url 'add-properties' property.id %}">Add more images</a>
+                            <a style="color: rgb(250, 250, 250);display: flex; background-color: rgb(59, 49, 49);padding: 5px 10px;" href="{% url 'edit-property-info' property.id %}">Edit property info</a>
                         </div>
                     </div>
                     {% endfor %}
@@ -45,7 +46,7 @@
                     <div class="owner-details">
                         <img src="{{agency.agency_image.url}}" alt="agency logo">
                         <h2>{{agency.agency_name}}</h2>
-                        <p><b>Number of properties listed: {{agency.property_count}}</b></p>
+                        <p><b>Number of properties listed: {{property_count}}</b></p>
                         <p>Location: {{agency.agent_location}}</p>
                     </div>
                     {% endif %}
@@ -56,7 +57,7 @@
                             <ul style="font-size: smaller;">
                                 {% for enquiry in enquiries %}
                                     {% for item in enquiry %}
-                                    <p><a href="#">{{item.email}} - {{item.quote}}</a></p>
+                                    <p><a href="#">{{item.email}} - {{item.quote}} - {{item.time}}</a></p>
                                     {% endfor %}
                                 {% endfor %}
                             </ul>

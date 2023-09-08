@@ -3,9 +3,10 @@ from .models import *
 from . forms import *
 from django.core.paginator import Paginator
 from django.db.models import Q
-from django.views.generic import CreateView
+from django.utils.lorem_ipsum import paragraphs
+from django.contrib import messages
+# from django.views.generic import CreateView
 # Create your views here.
-from django.db.models import Count
 
 
 def home(request):
@@ -16,15 +17,15 @@ def home(request):
         properties=Property.objects.all().order_by("-date_posted")
     agency = Agency.objects.all()[:3]
 
-    paginator = Paginator(properties, 4)
+    paginator = Paginator(properties, 12)
     page = request.GET.get('page')
     property_list = paginator.get_page(page)
 
     context={
         "property_list": property_list,
         "agency": agency,
-        # "q": q,
     }
+    # print(paragraphs(5)[0])
     return render(request, 'index.html', context)
 
 
@@ -39,6 +40,7 @@ def agentList(request, pk):
             form= form.save(commit=False)
             form.agency = Agency.objects.get(id=pk)
             form.save()
+            messages.info(request, "property listed")
             return redirect('agent-list', pk=pk)
     form = PropertyForm()
     if request.user.is_authenticated:
@@ -46,9 +48,8 @@ def agentList(request, pk):
             agency = Agency.objects.get(id=pk, agent=request.user)
             agency_property=Property.objects.filter(agency=agency)
             enquiry=[i.agency_property_enquiry for i in agency_property]
-            for b in enquiry:
-                for i in b:
-                    print(i)
+            property_count = agency.property_set.count()
+            # print(property_count)
         except Agency.DoesNotExist:
             return redirect("home")
     else:
@@ -59,7 +60,9 @@ def agentList(request, pk):
         "agency": agency,
         "form": form,
         "enquiries":enquiry,
+        "property_count":property_count,
     }
+
     return render(request, 'agent-list.html', context)
 
 
@@ -70,6 +73,7 @@ def address(request):
             add_form=add_form.save(commit=False)
             add_form.user=request.user
             add_form.save()
+            messages.success(request, "your location has been set")
             return redirect("create-agency")
     add_form=AddressForm()
     context = {
@@ -81,6 +85,7 @@ def address(request):
 def agencycreate(request):
     address= Address.objects.get(user=request.user)
     if address is None:
+        messages.info(request, "add a location address")
         return redirect("address")
     if request.method=="POST":
         agency_form = CreateAgency(request.POST, request.FILES)
@@ -89,6 +94,7 @@ def agencycreate(request):
             agency_form.agent=request.user
             agency_form.agent_location=address
             agency_form.save()
+            messages.success(request, "agency registered")
             return redirect('home')
     agency_form=CreateAgency()
     context={
@@ -100,6 +106,7 @@ def agencycreate(request):
 def estate_detail(request, property_id):
     property_detail = Property.objects.get(property_id=property_id)
     images = ImageModel.objects.filter(property=property_detail)
+    images_count=images.count()
 
     if request.method == "POST":
         enquiry_form = EnquiryForm(request.POST)
@@ -107,12 +114,14 @@ def estate_detail(request, property_id):
             enquiry_form= enquiry_form.save(commit=False)
             enquiry_form.property = property_detail
             enquiry_form.save()
+            messages.info(request, "offer sent")
             return redirect('home')
     enquiry_form = EnquiryForm()
     context={
         "property_detail":property_detail,
         "form": enquiry_form,
         "images": images,
+        "images_count":images_count,
     }
     return render(request, 'estate_detail.html', context)
 
@@ -131,9 +140,40 @@ def property_images_add(request, id):
         if form.is_valid():
             form.instance.property=property
             form.save()
+            messages.info(request, "property image added. have more?")
             return redirect("add-properties", id)      
     context={
         "images": property,
         "form": form,
     }
     return render(request, 'text.html', context)
+
+
+def edit_property_detail(request, id):
+    queryset = Property.objects.get(id=id)
+    if request.method=="GET":
+        form = PropertyForm(instance=queryset)
+        context = {
+            'form': form,
+        }
+        return render(request, "edit_property_detail.html", context)
+    elif request.method == 'POST':
+        form = PropertyForm(request.POST, instance=queryset)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'The post has been updated successfully.')
+            return redirect('home')
+        else:
+            messages.error(request, 'Please correct the following errors:')
+            context = {
+                'form': form,
+            }
+            return render(request, "edit_property_detail.html", context)
+
+
+def deleteImage(request, id):
+    images = ImageModel.objects.get(id=id)
+    if request.method=="POST":
+        images.delete()
+        return redirect("home")
+

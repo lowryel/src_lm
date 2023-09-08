@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Property Details</title>
+    <title>{% block head_title %}Property Details || {{block.super}}{% endblock head_title %}</title>
     <link rel="stylesheet" href="{% static './css/details.css' %}">
 </head>
 <body>
@@ -22,11 +22,29 @@
                     {% endif %}
                 </div>
 
-                <div class="props">
+                <div class="img-props">
                     {% for property_image in images %}
-                    <div class="card">
-                        <img src="{{property_image.image.url}}" alt="">
+                    {% if user == property_detail.agency.agent %}
+                    <div class="card-img">
+                        <img id="del-img" src="{{property_image.image.url}}" alt="">
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <button style="border: none;padding: 1px 5px;" 
+                             hx-post="{% url 'delete-property-image' property_image.id %}"
+                             hx-target="#del-img"
+                             hx-confirm="You sure you want to delete?">Delete</button>
+                        </form>
                     </div>
+                    {% else %}
+                    <div class="card-img">
+                        <img id="del-img" src="{{property_image.image.url}}" alt="">
+                        <!-- <form action="" method="post">
+                            {% csrf_token %}
+                            <button style="border: none;padding: 1px 5px;" hx-post="{% url 'delete-property-image' property_image.id %}"
+                                hx-target="#del-img" hx-confirm="You sure you want to delete?">Delete</button>
+                        </form> -->
+                    </div>
+                    {% endif %}
                     {% endfor %}
                 </div>
             </div>
@@ -39,8 +57,8 @@
                 </div>
             </div>
             <div class="enquiry-form">
-                <h2>Place a Bid</h2>
-                <form action="" method="post">
+                <h2>Make an offer</h2>
+                <form action="" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{form.as_p}}
                     <button style="background-color: black; padding: 8px 25px; color: white; border: none;cursor: pointer;">Submit</button>
@@ -60,7 +78,7 @@
         }
 
         // Add an event listener to the image.
-        const image = document.querySelectorAll(".card img");
+        const image = document.querySelectorAll(".card-img img");
         image.forEach((i)=>{
 
             i.addEventListener("click", () => {
