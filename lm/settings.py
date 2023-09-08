@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     "account",
 
     # plugins
-    "django_htmx",
 ]
 
 MIDDLEWARE = [
