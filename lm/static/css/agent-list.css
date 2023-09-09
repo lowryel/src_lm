@@ -111,6 +111,12 @@ h1, h2{
     font-style: italic;
 }
 
+#id_price{
+    display: flex;
+    justify-content: flex-start;
+    font-size: larger;
+}
+
 @media screen and (max-width:600px) {
     .main-section{
         margin: 0;

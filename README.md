@@ -28,3 +28,10 @@ hint:   git config pull.rebase false  # merge
 hint:   git config pull.rebase true   # rebase
 hint:   git config pull.ff only       # fast-forward only
 hint: 
+
+* "The Django admin /django/contrib/admin/templates/ directory contains two template folders:
+admin and registration. Copy them to a project directory that’s part of a DIRS folder of the TEMPLATES/DIRS
+variable in settings.py."
+
+
+
