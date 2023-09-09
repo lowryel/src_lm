@@ -126,10 +126,17 @@ USE_TZ = True
 #     os.path.join(BASE_DIR, 'lm/static'),
 # ]
 
+<<<<<<< HEAD
 # AWS_ACCESS_KEY_ID = ""
 # AWS_SECRET_ACCESS_KEY = ""
 # AWS_STORAGE_BUCKET_NAME = 'lmestate'
 # AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+=======
+AWS_ACCESS_KEY_ID = ""
+AWS_SECRET_ACCESS_KEY = ""
+AWS_STORAGE_BUCKET_NAME = 'lmestate'
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+>>>>>>> 8e223a37cd3feccbc57dd7ef2ceaa1ee78963093
 
 # AWS_S3_OBJECT_PARAMETERS = {
 #     'CacheControl': 'max-age=86400',
