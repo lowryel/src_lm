@@ -19,7 +19,7 @@ h1, h2{
 
 .header{
     padding: 30px 0;
-    background-color: rgba(38, 49, 53, 0.877);
+    background-color: #1a1a1a;
     position: sticky;
     top: 0;
     z-index: 100;
@@ -96,10 +96,7 @@ h1, h2{
     background-color: rgb(223, 217, 211);
     cursor: pointer;
 }
-.card:hover{
-    border: 2px solid rgb(155, 153, 153);
-    transition: ease-in-out 1s;
-}
+
 
 .like{
     color: aqua;
@@ -175,7 +172,11 @@ h1, h2{
 }
 
 .agencies{
-    border: 2px dotted violet;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #477e94e3;
+    /* border: 2px dotted violet; */
     display: block;
     justify-content: center;
     align-items: center;
@@ -188,12 +189,45 @@ h1, h2{
     width: 100%;
     background-color: bisque;
     margin-bottom: 20px;
+
+}
+
+@keyframes backgroup {
+    0% {
+        background-color: none;
+    }
+    25% {
+        background-color: aquamarine;
+    }
+    50% {
+        background-color: #2e3b41;
+        color: white;
+    }
+    75% {
+        background-color: bisque;
+    }
+    100% {
+        background-color: #eba9a9;
+    }
+}
+
+.agency:hover {
+    background-color: rgb(219, 217, 215);
+    animation: backgroup 5s infinite;
 }
 
 .owner-info img{
     width: 100px;
     height: 100px;
     border-radius: 50%;
+}
+
+.owner-info-text p{
+    font-size: 16px;
+    font-family: system-ui, -apple-system, "BlinkMacSystemFont", 
+    'Segoe UI', "Roboto", "Oxygen", "Ubuntu", "Cantarell", 
+    'Open Sans', 'Helvetica Neue', sans-serif;
+    font-style: italic;
 }
 
 .more-owners a{
@@ -279,11 +313,27 @@ h1, h2{
     color: rgba(221, 223, 223, 0.89);
 }
 
+.contact-info p{
+    font-size: 16px;
+    font-family: system-ui, -apple-system, "BlinkMacSystemFont",
+        'Segoe UI', "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+        'Open Sans', 'Helvetica Neue', sans-serif;
+    font-style: italic;
+}
+
 .property-locations{
     display: flex;
     justify-content: space-around;
     align-items: flex-start;
     gap: 20px;
+}
+
+.property-locations p{
+    font-size: 16px;
+    font-family: system-ui, -apple-system, "BlinkMacSystemFont",
+        'Segoe UI', "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+        'Open Sans', 'Helvetica Neue', sans-serif;
+    font-style: italic;
 }
 
 .locations b{

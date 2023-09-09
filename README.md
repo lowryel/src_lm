@@ -23,3 +23,8 @@ Also, rollback to the previous app version with this command
 - Command to start gunicorn config
 `gunicorn -c conf/gunicorn_config.py lm.asgi`
 
+hint: 
+hint:   git config pull.rebase false  # merge
+hint:   git config pull.rebase true   # rebase
+hint:   git config pull.ff only       # fast-forward only
+hint: 

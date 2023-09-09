@@ -38,11 +38,6 @@
                     {% else %}
                     <div class="card-img">
                         <img id="del-img" src="{{property_image.image.url}}" alt="">
-                        <!-- <form action="" method="post">
-                            {% csrf_token %}
-                            <button style="border: none;padding: 1px 5px;" hx-post="{% url 'delete-property-image' property_image.id %}"
-                                hx-target="#del-img" hx-confirm="You sure you want to delete?">Delete</button>
-                        </form> -->
                     </div>
                     {% endif %}
                     {% endfor %}
@@ -71,7 +66,6 @@
         function openImage(imageUrl) {
             // Create a new window.
             const newWindow = window.open(imageUrl, "_blank");
-
             // Set the width and height of the new window.
             newWindow.width = 600;
             newWindow.height = 400;
@@ -80,11 +74,9 @@
         // Add an event listener to the image.
         const image = document.querySelectorAll(".card-img img");
         image.forEach((i)=>{
-
             i.addEventListener("click", () => {
                 // Get the image URL.
                 const imageUrl = i.getAttribute("src");
-
                 // Open the image in a new window.
                 openImage(imageUrl);
             });

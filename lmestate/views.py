@@ -158,7 +158,7 @@ def edit_property_detail(request, id):
         }
         return render(request, "edit_property_detail.html", context)
     elif request.method == 'POST':
-        form = PropertyForm(request.POST, instance=queryset)
+        form = PropertyForm(request.POST, request.FILES, instance=queryset)
         if form.is_valid():
             form.save()
             messages.success(request, 'The post has been updated successfully.')
