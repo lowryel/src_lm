@@ -15,7 +15,7 @@ def home(request):
         properties=Property.objects.filter(Q(status__icontains=q) | Q(property_location__icontains=q)).order_by("-date_posted")
     else:
         properties=Property.objects.all().order_by("-date_posted")
-    agency = Agency.objects.all()[:3]
+    agency = Agency.objects.all().order_by("property_count")[:3]
 
     paginator = Paginator(properties, 12)
     page = request.GET.get('page')

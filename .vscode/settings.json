@@ -1,5 +1,7 @@
 {
     "editor.wordWrap": "wordWrapColumn",
     "chat.editor.wordWrap": "on",
-    "workbench.editor.wrapTabs": true
+    "workbench.editor.wrapTabs": true,
+    "ansible.lightspeed.enabled": true,
+    "ansible.lightspeed.suggestions.enabled": true
 }
