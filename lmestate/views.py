@@ -10,13 +10,21 @@ from django.contrib import messages
 
 
 def home(request):
+    agency = None
     q = request.POST.get('q' or None)
     if q:
         properties=Property.objects.filter(Q(status__icontains=q) | Q(property_location__icontains=q)).order_by("-date_posted")
     else:
         properties=Property.objects.all().order_by("-date_posted")
-    agency = Agency.objects.all().order_by("property_count")[:3]
-
+    if request.user.is_authenticated:
+        request.session.keys=request.user
+        agency = Agency.objects.filter(agent=request.session.keys).first()
+        print(agency)
+        # if Agency.DoesNotExist:
+        #     return redirect("home")
+    else:
+        agency=Agency.objects.none()
+        print("Anon User through", agency)
     paginator = Paginator(properties, 12)
     page = request.GET.get('page')
     property_list = paginator.get_page(page)
@@ -84,21 +92,27 @@ def address(request):
 
 def agencycreate(request):
     address= Address.objects.get(user=request.user)
+    agency = Agency.objects.filter(agent=request.user)
+    print(agency)
     if address is None:
         messages.info(request, "add a location address")
         return redirect("address")
+
     if request.method=="POST":
         agency_form = CreateAgency(request.POST, request.FILES)
         if agency_form.is_valid():
-            agency_form=agency_form.save(commit=False)
-            agency_form.agent=request.user
-            agency_form.agent_location=address
-            agency_form.save()
+            instance=agency_form.save(commit=False)
+            instance.agent=request.user
+            if agency.exists():
+                messages.info(request, "This owner already has an agency")
+                return redirect('home')
+            instance.agent_location=address
+            instance.save()
             messages.success(request, "agency registered")
             return redirect('home')
-    agency_form=CreateAgency()
+    instance=CreateAgency()
     context={
-        "agency_form":agency_form,
+        "agency_form":instance,
     }
     return render(request, 'agencycreate.html', context)
 

@@ -8,6 +8,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth import authenticate, login, logout
 from django.views.generic import CreateView
+from lmestate.models import Agency
 
 
 from .forms import UserSignupForm
@@ -40,7 +41,10 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('home')
+            if Agency.objects.filter(agent=user).exists():
+                return redirect("home")
+            else:
+                return redirect("create-agency")
         else:
             return redirect('login')
     return render(request, 'account/login.html')

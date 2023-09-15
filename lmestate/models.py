@@ -26,8 +26,9 @@ class Address(models.Model):
 class AgencyManager(models.Manager):
     def get_agency(self, request):
         if request.user.is_authenticated:
-            agent=request.user
-            return self.get_queryset().get(agent=agent)
+            user = request.user
+            request.session = user
+            return self.get_queryset().get(agent=request.session)
         pass
 
 
@@ -53,6 +54,8 @@ class Agency(models.Model):
     #     return self.
 
 # def agency_property_count(sender, instance, *args, **kwargs):
+#     if instance.id:
+#         instance.save()
 #     print("pre_save property count")
 #     # instance.save()
 #     total=instance.property_set.count()
@@ -99,9 +102,9 @@ class Property(models.Model):
 
 def agency_property_count(sender, instance, *args, **kwargs):
     print("pre_save property count 2")
-    count = instance.property_set.count()
-    instance.property_count=count
-    return instance.property_count
+    # count = instance.objects.count()
+    # instance.property_count=count
+    # return instance.property_count
 pre_save.connect(agency_property_count, sender=Agency)
 
 

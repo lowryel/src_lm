@@ -17,8 +17,15 @@
                 <a style="text-decoration: none;" href="{% url 'home' %}"><h1>LM Estates Manager</h1></a>
                 {% if request.user.is_authenticated %}
                 <div class="navbar">
+
                     <a href="{% url 'logout' %}">Logout</a>
-                    <a style="background-color: rgb(233, 138, 138); padding: 5px 12px;" href="#contact">Reach Out</a>                     
+                    <a href="{% url 'create-agency' %}">Create Agency</a>
+                    <a href="#contact">Reach Out</a>
+                    
+                        {% if agency %}
+                        <a class="owner-info" href="{% url 'agent-list' agency.id %}">
+                            <img style="height:30px; width: 30px; border-radius: 100%;" src="{{agency.agency_image.url}}" alt="{{agency.agency_name}}"></a>
+                        {% endif %}
                 </div>
                 {% else %}
                 <div class="navbar">
@@ -58,40 +65,6 @@
                         {% include 'snippets/property-card.html' %}
                     </div>
                 </div>
-                <div class="pages">
-                    <h2>Find Agents</h2>
-                    <div class="agencies">
-                        {% if request.user.is_authenticated %}
-                            {% for agent in agency %}
-                            <div class="agency">
-                                <div class="owner-info">
-                                    <img src="{{agent.agency_image.url}}" alt="">
-                                    <a href="{% url 'agent-list' agent.id %}"><p><b>{{agent.agency_name}}</b></p></a>
-                                </div>
-                                <div class="owner-info-text">
-                                    <p>Agency Location: {{agent.agent_location}}</p>
-                                    <p>Registered Since: {{agent.date_registered | timesince}}</p>
-                                </div>
-                            </div>
-                            {% endfor %}
-                        {% else %}
-                            {% for agent in agency %}
-                            <div class="agency">
-                                <div class="owner-info">
-                                    <img src="{{agent.agency_image.url}}" alt="">
-                                    <p><b>{{agent.agency_name}}</b></p>
-                                </div>
-                                <div class="owner-info-text">
-                                    <p>Agency Location: {{agent.agent_location}}</p>
-                                    <p>Registered Since: {{agent.date_registered | timesince}}</p>
-                                </div>
-                            </div>
-                            {% endfor %}
-                        {% endif %}
-
-                        <p class="more-owners"><a href="">More</a></p>
-                    </div>
-                </div> 
          
             </main>
             <div class="testimony-section">
