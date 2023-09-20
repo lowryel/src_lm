@@ -3,6 +3,6 @@
 # bind = '127.0.0.1'
 # workers = 3
 
-pythonpath = '/src_lm/lm'
+pythonpath = 'lowryel/src_lm/lm'
 bind = 'https://lm-estate.onrender.com/'
 workers = 3
