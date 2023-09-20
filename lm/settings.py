@@ -21,7 +21,7 @@ environ.Env.read_env(BASE_DIR / '.env')  # <-- Updated!
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -122,9 +122,9 @@ USE_I18N = True
 USE_TZ = True
 
 
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, 'lm/static'),
-# ]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'lm/static'),
+]
 
 
 AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
