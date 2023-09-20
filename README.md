@@ -33,5 +33,6 @@ hint:
 admin and registration. Copy them to a project directory that’s part of a DIRS folder of the TEMPLATES/DIRS
 variable in settings.py."
 
+https://lm-estate.onrender.com/
 
 
