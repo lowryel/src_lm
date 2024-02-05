@@ -5,13 +5,14 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.utils.lorem_ipsum import paragraphs
 from django.contrib import messages
+from django.contrib.contenttypes.models import ContentType
 # from django.views.generic import CreateView
 # Create your views here.
 
 
 def home(request):
     agency = None
-    q = request.POST.get('q' or None)
+    q = request.GET.get('q' or None)
     if q:
         properties=Property.objects.filter(Q(status__icontains=q) | Q(property_location__icontains=q)).order_by("-date_posted")
     else:
@@ -30,7 +31,8 @@ def home(request):
         "property_list": property_list,
         "agency": agency,
     }
-    # print(paragraphs(5)[0])
+    content_type = ContentType.objects.get_for_model(Property)
+    print(content_type)
     return render(request, 'index.html', context)
 
 
@@ -139,12 +141,6 @@ def estate_detail(request, property_id):
 def property_images_add(request, id):
     form = PropertyImageUploadForm()
     property = Property.objects.get(id=id)
-    # images = ImageModel.objects.filter(property=property)
-    # total=0
-    # for image in images:
-    #     total +=1
-    # print(f"{total} images for {property}")
-
     if request.method=="POST":
         form = PropertyImageUploadForm(request.POST, request.FILES)
         if form.is_valid():
